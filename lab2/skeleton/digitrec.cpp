@@ -131,7 +131,7 @@ bit4 knn_vote(bit6 knn_set[10][K_CONST]) {
 
   bit4 total_votes[10]={0}; //initialize array for each digit
   count_vote:for (int i=0; i<K_CONST; i++){
-    bit4 label = sorted_labels[i]; 
+    int label = sorted_labels[i]; 
     total_votes[label]++; //Count up total votes for K closest digits
   }
 
