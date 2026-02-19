@@ -61,9 +61,9 @@ void update_knn(digit test_inst, digit train_inst,
   }
 
   //Start from k farthest distance and insert into
-  insert_dist:if(dist<min_distances[K_CONST-1]){
+  if(dist<min_distances[K_CONST-1]){
     int i;
-    for(i = K_CONST-1; i>0 && dist<min_distances[i-1]; i--){
+    insert_dist:for(i = K_CONST-1; i>0 && dist<min_distances[i-1]; i--){
       min_distances[i]=min_distances[i-1];
     }
     min_distances[i]=dist;
