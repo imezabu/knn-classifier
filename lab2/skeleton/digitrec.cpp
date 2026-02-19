@@ -60,6 +60,7 @@ void update_knn(digit test_inst, digit train_inst,
     dist += diff[i];
   }
 
+  //Start from k farthest distance and insert into proper position
   if(dist<min_distances[K_CONST-1]){
     int i = K_CONST-1;
     while(i>0 && dist<min_distances[i-1]){
@@ -129,7 +130,21 @@ bit4 knn_vote(bit6 knn_set[10][K_CONST]) {
 
   sort_knn(knn_set, sorted_distances, sorted_labels);
 
-  // -----------------------------
-  // YOUR CODE GOES HERE
-  // -----------------------------999999
+  bit4 total_votes[10]={0}; //initialize array for each digit
+  for (int i=0; i<K_CONST; i++){
+    bit4 label = sorted_labels[i]; 
+    total_votes[label]++; //Count up total votes for K closest digits
+  }
+
+  bit4 best_label=0;
+  bit4 max_votes=total_votes[best_label];
+
+  //poll digits and extract the digit with the most votes
+  for(int i=1; i<10; i++){
+    if(total_votes[i]>max_votes){
+      best_label=i;
+      max_votes=total_votes[best_label];  
+    }
+  }
+  return best_label;
 }
