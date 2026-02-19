@@ -62,6 +62,7 @@ void update_knn(digit test_inst, digit train_inst,
 
   //Start from k farthest distance and insert into proper position
   if (dist < min_distances[K_CONST - 1]) {
+    int i;
     for (int i = K_CONST - 1; i > 0 && dist < min_distances[i - 1]; i--) {
         min_distances[i] = min_distances[i - 1];
     }
