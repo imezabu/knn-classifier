@@ -18,7 +18,7 @@ file delete -force "./result/${filename}"
 #------------------------------------------------------
 # You can specify a set of parameter K to explore.
 #------------------------------------------------------
-set value_k { 1 2 3 4 5 }
+set value_k { 3 }
 #------------------------------------------------------
 # run batch experiments
 #------------------------------------------------------
@@ -52,6 +52,25 @@ set_directive_inline -off update_knn
 set_directive_inline -off knn_vote
 ### You can add your own directives here ###
 
+set_directive_unroll  digitrec/knn_init_inner 
+set_directive_unroll  digitrec/knn_init_outer 
+set_directive_unroll  digitrec/training_inner 
+
+set_directive_unroll  update_knn/popcount
+set_directive_unroll  update_knn/insert_dist
+
+
+set_directive_unroll  sort_knn/flatten_inner 
+set_directive_unroll  sort_knn/flatten_outer
+set_directive_unroll  sort_knn/bubble_inner 
+set_directive_unroll  sort_knn/bubble_outer 
+set_directive_unroll  knn_vote/count_vote 
+set_directive_unroll  knn_vote/poll_vote 
+
+set_directive_array_partition digitrec knn_set  -type complete
+set_directive_array_partition knn_vote total_votes -type complete
+set_directive_array_partition  sort_knn sorted_distances -type complete
+set_directive_array_partition  sort_knn sorted_labels -type complete
 
 # Simulate the C++ design
 csim_design
